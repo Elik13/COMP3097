@@ -14,6 +14,9 @@ class RestaurantDetailViewController: UIViewController {
 
     var restaurant: Restaurant!
     
+    private var locationManager = CLLocationManager()
+    private var currentLocation: CLLocationCoordinate2D?
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addresLabel: UILabel!
@@ -23,7 +26,8 @@ class RestaurantDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setRating()
+        setupRating()
+        setupPin()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,12 +45,13 @@ class RestaurantDetailViewController: UIViewController {
     @IBAction func changeRatingAction(_ sender: UIButton) {
         restaurant?.rate = sender.tag
         RestaurantService.shared.save()
-        setRating()
+        setupRating()
     }
     
     @IBAction func routeAction(_ sender: UIButton) {
-        let path = "comgooglemaps://?saddr=&daddr=\(restaurant.location.latitude),\(restaurant.location.longitude)&directionsmode=driving"
-        UIApplication.shared.open(URL(string: path)!)
+        guard let location = currentLocation else { return }
+        let url = URL(string: "https://www.google.com/maps/dir/?api=1&origin=\(location.latitude)%2C\(location.longitude)&destination=\(restaurant.lat)%2C\(restaurant.long)")
+        UIApplication.shared.open(url!)
     }
     
     @IBAction func shareAction(_ sender: UIButton) {
@@ -84,7 +89,7 @@ class RestaurantDetailViewController: UIViewController {
         phoneLabel.text = restaurant.phone?.applyPatternOnNumbers(pattern: "+# (###) ###-####", replacementCharacter: "#")
     }
     
-    private func setRating() {
+    private func setupRating() {
         ratingStackView.arrangedSubviews.forEach { subview in
             let ratingButton = subview as? UIButton
             if (ratingButton?.tag ?? 0) <= (restaurant?.rate ?? 0) {
@@ -94,6 +99,28 @@ class RestaurantDetailViewController: UIViewController {
             }
         }
     }
+    
+    private func setupMap() {
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        mapView.showsUserLocation = false
+        mapView.showsCompass = true
+        
+        let coordinateRegion = MKCoordinateRegion(center: restaurant.location,
+                                                  latitudinalMeters: 1000,
+                                                  longitudinalMeters: 1000)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    private func setupPin() {
+        let myAnnotation: MKPointAnnotation = MKPointAnnotation()
+        myAnnotation.coordinate = restaurant.location;
+        myAnnotation.title = restaurant.name
+        myAnnotation.subtitle = restaurant.address.address
+        mapView.addAnnotation(myAnnotation)
+    }
 }
 
 extension RestaurantDetailViewController: MFMailComposeViewControllerDelegate {
@@ -102,4 +129,12 @@ extension RestaurantDetailViewController: MFMailComposeViewControllerDelegate {
                                error: Error?) {
         controller.dismiss(animated: true)
     }
+}
+
+extension RestaurantDetailViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.currentLocation = locations.last?.coordinate
+        locationManager.stopUpdatingLocation()
+    }
+
 }

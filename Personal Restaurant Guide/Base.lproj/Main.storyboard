@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="1Yr-jG-zKa">
+                            <searchBar contentMode="redraw" placeholder="Search (name, tags)" translatesAutoresizingMaskIntoConstraints="NO" id="1Yr-jG-zKa">
                                 <rect key="frame" x="0.0" y="88" width="414" height="51"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -116,11 +116,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4Jb-NQ-5oY">
-                                <rect key="frame" x="0.0" y="88" width="414" height="616.5"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="568.5"/>
                                 <color key="backgroundColor" red="0.10786690559999999" green="0.97115141149999995" blue="0.62517493960000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7MO-aK-BrP">
-                                <rect key="frame" x="0.0" y="700.5" width="414" height="161.5"/>
+                                <rect key="frame" x="0.0" y="652.5" width="414" height="209.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NOJ-RD-E08">
                                         <rect key="frame" x="24" y="24" width="366" height="77.5"/>
@@ -197,29 +197,60 @@
                                         </constraints>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bp7-Ct-UQG">
-                                        <rect key="frame" x="362" y="8" width="44" height="44"/>
+                                        <rect key="frame" x="16" y="157.5" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="Gy9-xg-ve8"/>
                                             <constraint firstAttribute="height" constant="44" id="Xix-bC-S1p"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="square.and.arrow.up" catalog="system"/>
+                                        <connections>
+                                            <action selector="shareAction:" destination="jCb-id-O3r" eventType="touchUpInside" id="KPB-Ab-GTe"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqn-xY-KFw">
+                                        <rect key="frame" x="68" y="157.5" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="TTa-L9-MIq"/>
+                                            <constraint firstAttribute="width" constant="44" id="hb4-Wy-TfL"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="mail" catalog="system"/>
+                                        <connections>
+                                            <action selector="mailAction:" destination="jCb-id-O3r" eventType="touchUpInside" id="R7z-gU-9FI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f5Q-Mg-LWR">
+                                        <rect key="frame" x="120" y="157.5" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="2EX-nZ-eHS"/>
+                                            <constraint firstAttribute="height" constant="44" id="iS7-hF-VTn"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="twitter"/>
+                                        <connections>
+                                            <action selector="tweetAction:" destination="jCb-id-O3r" eventType="touchUpInside" id="1uk-yF-m1T"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="f5Q-Mg-LWR" firstAttribute="leading" secondItem="lqn-xY-KFw" secondAttribute="trailing" constant="8" id="5ZK-oD-osX"/>
                                     <constraint firstItem="Wc0-Ho-waV" firstAttribute="top" secondItem="NOJ-RD-E08" secondAttribute="bottom" constant="8" id="9sf-GU-XEk"/>
+                                    <constraint firstItem="lqn-xY-KFw" firstAttribute="leading" secondItem="bp7-Ct-UQG" secondAttribute="trailing" constant="8" id="Doh-Xg-jGp"/>
                                     <constraint firstAttribute="trailing" secondItem="NOJ-RD-E08" secondAttribute="trailing" constant="24" id="WZH-5x-8k3"/>
-                                    <constraint firstItem="bp7-Ct-UQG" firstAttribute="top" secondItem="7MO-aK-BrP" secondAttribute="top" constant="8" id="YKU-go-rwI"/>
-                                    <constraint firstAttribute="trailing" secondItem="bp7-Ct-UQG" secondAttribute="trailing" constant="8" id="aJH-7A-zgH"/>
                                     <constraint firstItem="NOJ-RD-E08" firstAttribute="top" secondItem="7MO-aK-BrP" secondAttribute="top" constant="24" id="byf-6x-724"/>
-                                    <constraint firstAttribute="bottom" secondItem="Wc0-Ho-waV" secondAttribute="bottom" constant="8" id="dXD-Rg-MbM"/>
+                                    <constraint firstAttribute="bottom" secondItem="Wc0-Ho-waV" secondAttribute="bottom" constant="56" id="dXD-Rg-MbM"/>
                                     <constraint firstItem="NOJ-RD-E08" firstAttribute="leading" secondItem="7MO-aK-BrP" secondAttribute="leading" constant="24" id="ecV-oT-sh2"/>
+                                    <constraint firstAttribute="bottom" secondItem="lqn-xY-KFw" secondAttribute="bottom" constant="8" id="g7d-Hi-uLb"/>
+                                    <constraint firstAttribute="bottom" secondItem="bp7-Ct-UQG" secondAttribute="bottom" constant="8" id="kbB-0S-xaa"/>
                                     <constraint firstItem="Wc0-Ho-waV" firstAttribute="centerX" secondItem="7MO-aK-BrP" secondAttribute="centerX" id="kh7-FC-ehI"/>
+                                    <constraint firstItem="bp7-Ct-UQG" firstAttribute="leading" secondItem="7MO-aK-BrP" secondAttribute="leading" constant="16" id="nMi-fP-g0b"/>
+                                    <constraint firstAttribute="bottom" secondItem="f5Q-Mg-LWR" secondAttribute="bottom" constant="8" id="yF3-5d-bQd"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nV1-3u-JBq">
-                                <rect key="frame" x="362" y="640.5" width="44" height="44"/>
+                                <rect key="frame" x="362" y="592.5" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Eap-B6-vEI"/>
                                     <constraint firstAttribute="width" constant="44" id="Fb4-ex-NGv"/>
@@ -371,8 +402,10 @@
     <resources>
         <image name="car.fill" catalog="system" width="128" height="93"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
+        <image name="mail" catalog="system" width="128" height="93"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <image name="star" catalog="system" width="128" height="116"/>
+        <image name="twitter" width="30" height="30"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -8,6 +8,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import MessageUI
 
 class RestaurantDetailViewController: UIViewController {
 
@@ -45,7 +46,36 @@ class RestaurantDetailViewController: UIViewController {
     
     @IBAction func routeAction(_ sender: UIButton) {
         let path = "comgooglemaps://?saddr=&daddr=\(restaurant.location.latitude),\(restaurant.location.longitude)&directionsmode=driving"
-        UIApplication.shared.openURL(URL.init(string: path)!)
+        UIApplication.shared.open(URL(string: path)!)
+    }
+    
+    @IBAction func shareAction(_ sender: UIButton) {
+        let text = "Personal Restaurant Guide, restaurant: \(restaurant.name) address:\(restaurant.fullAddress)"
+        let textToShare = [text]
+        
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        activityViewController.excludedActivityTypes = [.airDrop, .addToReadingList, .assignToContact, .copyToPasteboard,]
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    @IBAction func mailAction(_ sender: UIButton) {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setMessageBody("\(restaurant.name) \(restaurant.fullAddress)", isHTML: false)
+            mail.setSubject("Personal Restaurant Guide")
+            
+            present(mail, animated: true)
+        }
+    }
+    
+    @IBAction func tweetAction(_ sender: UIButton) {
+        let text = "\(restaurant.name) \(restaurant.fullAddress)"
+        let shareString = "https://twitter.com/intent/tweet?text=\(text)"
+        let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        let url = URL(string: escapedShareString)
+        UIApplication.shared.open(url!)
     }
     
     private func setupRestaurantData() {
@@ -63,5 +93,13 @@ class RestaurantDetailViewController: UIViewController {
                 ratingButton?.setImage(UIImage(systemName: "star"), for: .normal)
             }
         }
+    }
+}
+
+extension RestaurantDetailViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController,
+                               didFinishWith result: MFMailComposeResult,
+                               error: Error?) {
+        controller.dismiss(animated: true)
     }
 }

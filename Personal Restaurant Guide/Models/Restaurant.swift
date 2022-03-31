@@ -23,7 +23,7 @@ class Restaurant: Codable {
         return CLLocationCoordinate2D(latitude: lat, longitude: long)
     }
     
-    var fullAddress: String? {
+    var fullAddress: String {
         return [address.address, address.city, address.country].joined(separator: ", ")
     }
     

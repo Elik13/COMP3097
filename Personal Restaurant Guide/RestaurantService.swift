@@ -41,6 +41,17 @@ class RestaurantService {
         save()
     }
     
+    func save() {
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(self.restaurants)
+            UserDefaults.standard.set(data, forKey: "restaurants")
+            UserDefaults.standard.synchronize()
+        } catch {
+            print("Unable to Encode Array of Restaurants (\(error))")
+        }
+    }
+    
 //    MARK: - Private
     
     private func populate() -> [Restaurant] {
@@ -84,17 +95,6 @@ class RestaurantService {
                                                        country: "Sweden"),
                                       phone: "+468208580")]
         save()
-        return restaurants
-    }
-    
-    func save() {
-        do {
-            let encoder = JSONEncoder()
-            let data = try encoder.encode(self.restaurants)
-            UserDefaults.standard.set(data, forKey: "restaurants")
-            UserDefaults.standard.synchronize()
-        } catch {
-            print("Unable to Encode Array of Restaurants (\(error))")
-        }
+        return self.restaurants
     }
 }

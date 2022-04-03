@@ -28,6 +28,7 @@ class RestaurantDetailViewController: UIViewController {
         
         setupRating()
         setupPin()
+        setupMap()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -88,7 +88,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elik (ID: 101274713)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7M-ti-dwf">
-                                <rect key="frame" x="133" y="437.5" width="148.5" height="21"/>
+                                <rect key="frame" x="133" y="447.5" width="148.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Personal Restaurant Guide" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="88r-nS-d5w">
+                                <rect key="frame" x="106" y="418.5" width="202" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -97,7 +103,9 @@
                         <viewLayoutGuide key="safeArea" id="vT5-BX-gXl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="M7M-ti-dwf" firstAttribute="centerY" secondItem="bbG-sF-0pz" secondAttribute="centerY" id="IdS-xD-dp6"/>
+                            <constraint firstItem="M7M-ti-dwf" firstAttribute="centerY" secondItem="bbG-sF-0pz" secondAttribute="centerY" constant="10" id="IdS-xD-dp6"/>
+                            <constraint firstItem="M7M-ti-dwf" firstAttribute="top" secondItem="88r-nS-d5w" secondAttribute="bottom" constant="8" id="Oow-7p-IzS"/>
+                            <constraint firstItem="88r-nS-d5w" firstAttribute="centerX" secondItem="bbG-sF-0pz" secondAttribute="centerX" id="Xg5-2Z-YuP"/>
                             <constraint firstItem="M7M-ti-dwf" firstAttribute="centerX" secondItem="bbG-sF-0pz" secondAttribute="centerX" id="uqB-kP-0HQ"/>
                         </constraints>
                     </view>
